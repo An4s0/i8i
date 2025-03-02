@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { FaLink } from "react-icons/fa6";
+import shorten from '@/utils/shorten';
 
 interface Position {
   top: string;
@@ -10,6 +11,7 @@ interface Position {
 
 export default function Home() {
   const [positions, setPositions] = useState<Position[]>([]);
+  const [shortenedUrl, setShortenedUrl] = useState<string | null>(null);
 
   const generateRandomPositions = () => {
     const randomPositions: Position[] = Array(2).fill(0).map(() => ({
@@ -22,6 +24,24 @@ export default function Home() {
   useEffect(() => {
     generateRandomPositions();
   }, []);
+
+  const handleClick = async () => {
+    try {
+      const url = document.querySelector('input')?.value;
+      if (!url || !url.startsWith('http') || !url.includes('.')) return alert('Invalid URL');
+
+      const res = await shorten.create(url);
+
+      if (res?.shortUrl) {
+        setShortenedUrl(res.shortUrl);
+        document.querySelector('input')!.value = '';
+      } else {
+        alert('Failed to shorten URL');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className='p-5'>
@@ -55,6 +75,11 @@ export default function Home() {
         <p className="text-md mt-5 z-10 text-zinc-400 sm:text-lg">
           Enter your long URL below to shorten it
         </p>
+        {shortenedUrl && (
+          <p className="text-sm mt-5 z-10 text-zinc-400 sm:text-lg">
+            Shortened URL: <a href={`${process.env.NEXT_PUBLIC_APP_URL}/${shortenedUrl}`} className="text-blue-500 underline">{process.env.NEXT_PUBLIC_APP_URL}/{shortenedUrl}</a>
+          </p>
+        )}
         <div className="flex items-center mt-5 z-10 border border-zinc-600 rounded-3xl">
           <FaLink className="text-2xl text-zinc-600 ml-5" />
           <input
@@ -62,7 +87,10 @@ export default function Home() {
             placeholder={`Enter your long URL`}
             className="sm:w-82 h-12 sm:px-5 rounded-3xl focus:outline-none w-48 p-2"
           />
-          <button className="bg-[#fdaa6b] hover:bg-[#fc987a] text-black font-semibold h-12 sm:w-32 rounded-3xl flex items-center justify-center ml-2 cursor-pointer w-28">
+          <button
+            className="bg-[#fdaa6b] hover:bg-[#fc987a] text-black font-semibold h-12 sm:w-32 rounded-3xl flex items-center justify-center ml-2 cursor-pointer w-28"
+            onClick={handleClick}
+          >
             Shorten
           </button>
         </div>

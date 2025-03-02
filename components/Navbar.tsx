@@ -17,8 +17,8 @@ export default function Navbar() {
                     <Link href={"/analytics"} className="links">
                         Analytics
                     </Link>
-                    <Link href={"/api"} className="links">
-                        API
+                    <Link href={"/docs"} className="links">
+                        Docs
                     </Link>
                     <hr className="h-6 border-l border-zinc-800" />
                     <Link href={"https://github.com/An4s0/i8i"} className="social">
