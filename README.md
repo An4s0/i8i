@@ -98,11 +98,11 @@ Once the server is running, you can access the i8i URL shortener by visiting the
 
 # Technologies Used
 
-- **Backend**: Node.js, Express
-- **Database**: MongoDB
-- **Frontend**: React.js, Next.js
-- **Authentication**: JWT (JSON Web Tokens) (Planned)
-- **Other**: Mongoose, Axios, dotenv
+- **Next.js**: React framework
+- **TypeScript**: Language
+- **Tailwind CSS**: Styling
+- **MongoDB**: Database
+- **Vercel**: Deployment
 
 </div>
 
