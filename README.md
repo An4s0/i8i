@@ -115,7 +115,7 @@ To deploy the i8i URL shortener, you can use cloud platforms like Heroku, Vercel
 1. Set up a production database in MongoDB Atlas or another cloud-based database service.
 2. Configure environment variables in your cloud provider's dashboard:
    - `MONGODB_URL` for the database connection.
-   - `NEXT_PUBLIC_APP_URL` for the application URL (e.g., `https://yourdomain.com`).
+   - `NEXT_PUBLIC_APP_URL` for the application URL (e.g., `https://i8i.it`).
 3. Push the code to your cloud platform and configure the deployment settings.
 
 </div>
