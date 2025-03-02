@@ -1,5 +1,5 @@
 <svg data-v-0dd9719b="" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 340.000000 250.000000" preserveAspectRatio="xMidYMid meet" color-interpolation-filters="sRGB" style="margin: auto;"> <rect data-v-0dd9719b="" x="0" y="0" width="100%" height="100%" fill="#0d082100" fill-opacity="1" class="background">
-</rect>  <g data-v-0dd9719b="" fill="#fa709a" class="basesvg" transform="translate(5.2129974365234375,5.459602355957031)">
+</rect>  <g data-v-0dd9719b="" fill="#fff" class="basesvg" transform="translate(5.2129974365234375,5.459602355957031)">
 <g data-gra="path-name" fill-rule="" class="tp-name" fill="url(#13887c13-5927-4719-a0b9-edf77a441de9)">
   <g transform="scale(5.319999999999975)">
     <g>
@@ -11,9 +11,9 @@
 </g>
 <defs v-gra="od">
   <linearGradient x1="0" y1="1" x2="0" y2="0" id="13887c13-5927-4719-a0b9-edf77a441de9">
-    <stop offset="0%" stop-color="#fa709a">
+    <stop offset="0%" stop-color="#fff">
     </stop>
-    <stop offset="100%" stop-color="#ffe13f">
+    <stop offset="100%" stop-color="#fff">
     </stop>
   </linearGradient>
   <filter id="42443b3f1de60f6b6fd3b6a9844b4764" filterUnits="objectBoundingBox">
