@@ -17,20 +17,14 @@ export default function Navbar() {
                     <Link href={"/analytics"} className="links">
                         Analytics
                     </Link>
-                    <Link href={"/docs"} className="links">
-                        Documentation
-                    </Link>
                     <Link href={"/api"} className="links">
                         API
-                    </Link>
-                    <Link href={"/contact"} className="links">
-                        Contact Us
                     </Link>
                     <hr className="h-6 border-l border-zinc-800" />
                     <Link href={"https://github.com/An4s0/i8i"} className="social">
                         <SiGithub size={20} />
                     </Link>
-                    <Link href={"https://docs.i8i.xyz"} className="social">
+                    <Link href={"https://ianas.me/posts/i8i"} className="social">
                         <SiGoogledocs size={20} />
                     </Link>
                 </div>
