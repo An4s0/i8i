@@ -4,6 +4,7 @@ import URLSchema from "@/db/schemas/url";
 import generateRandomString from "@/helpers/generateRandomString";
 import ResponseFormat from "@/types/responseFormat";
 import checkUrl from "@/helpers/checkUrl";
+import analytics from "@/db/schemas/analytics";
 
 export async function POST(req: NextRequest): Promise<NextResponse<ResponseFormat>> {
     try {
@@ -48,7 +49,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<ResponseForma
         } as ResponseFormat);
 
     } catch (error) {
-        console.error("Error in POST:", error);
+        console.error("Error in POST Shorten:", error);
         return NextResponse.json({
             success: false,
             message: "Server error"
@@ -75,6 +76,13 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
                 message: "URL not found"
             } as ResponseFormat, { status: 404 });
 
+
+        new analytics({
+            shortUrl,
+            ipAddress: req.headers.get("x-real-ip") || req.headers.get("x-forwarded-for") || "Unknown",
+            userAgent: req.headers.get("user-agent"),
+        }).save();
+
         return NextResponse.json({
             success: true,
             message: "URL found",
@@ -83,7 +91,7 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
             }
         } as ResponseFormat);
     } catch (error) {
-        console.error("Error in GET:", error);
+        console.error("Error in GET Shorten:", error);
         return NextResponse.json({
             success: false,
             message: "Server error"

@@ -41,7 +41,7 @@
 <div id="features">
 
 # Features
-- 📊 Analytics: clicks, location, devices. (under development)
+- 📊 Analytics: location, devices and browser. (under development)
 - 🔒 Password protection for links. (under development)
 - 🕒 Expiration settings for temporary links. (under development)
 - 📌 QR code generation. (under development)
