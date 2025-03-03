@@ -5,7 +5,7 @@ import shorten from "@/utils/shorten";
 import { TbError404 } from "react-icons/tb";
 import { CgSearchLoading } from "react-icons/cg";
 
-export default function page() {
+export default function Page() {
     const pathname = usePathname();
     const [notFound, setNotFound] = useState(false);
 
