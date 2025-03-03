@@ -27,16 +27,15 @@ export default function Home() {
 
   const handleClick = async () => {
     try {
-      const url = document.querySelector('input')?.value;
-      if (!url || !url.startsWith('http') || !url.includes('.')) return alert('Invalid URL');
+      const originalUrl = document.querySelector('input')?.value;
 
-      const res = await shorten.create(url);
+      const res = await shorten.create(originalUrl as string);
 
-      if (res?.shortUrl) {
-        setShortenedUrl(res.shortUrl);
+      if (res.success) {
+        setShortenedUrl(res.data.shortUrl);
         document.querySelector('input')!.value = '';
       } else {
-        alert('Failed to shorten URL');
+        alert(res.message);
       }
     } catch (error) {
       console.error(error);

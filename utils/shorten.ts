@@ -12,14 +12,14 @@ const shorten = {
             return { error: error.response }
         }
     },
-    create: async (url: string) => {
+    create: async (originalUrl: string) => {
         try {
             const response = await fetch(`/api/shorten`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ url }),
+                body: JSON.stringify({ originalUrl}),
             });
 
             if (response.ok) {

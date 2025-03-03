@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import shorten from "@/utils/shorten";
-import { TbError404 } from "react-icons/tb";
 import { CgSearchLoading } from "react-icons/cg";
+import NotFoundPage from "../not-found";
 
 export default function Page() {
     const pathname = usePathname();
@@ -12,28 +12,19 @@ export default function Page() {
     useEffect(() => {
         const getURL = async () => {
             const res = await shorten.get(pathname.slice(1));
-            if (res.url) window.location.href = res.url;
+            if (res.success) window.location.href = res.data.originalUrl;
             else setNotFound(true);
         }
-        if (pathname) getURL();
         getURL();
     }, [pathname]);
 
+    if (notFound) return <NotFoundPage />;
+
     return (
-        <>
-            {notFound ? (
-                <div className="flex flex-col items-center justify-center h-[calc(100vh-15rem)] space-y-2">
-                    <TbError404 className="text-zinc-700" size={150} />
-                    <span className="font-bold text-2xl">Page Not Found</span>
-                    <p className="text-zinc-500">Oops! The page you&apos;re looking for doesn&apos;t exist.</p>
-                </div>
-            ) : (
-                <div className="flex flex-col items-center justify-center h-[calc(100vh-15rem)] space-y-2">
-                    <CgSearchLoading className="text-zinc-700" size={150} />
-                    <span className="font-bold text-2xl">Loading</span>
-                    <p className="text-zinc-500">Redirecting...</p>
-                </div>
-            )}
-        </>
+        <div className="flex flex-col items-center justify-center h-[calc(100vh-15rem)] space-y-2">
+            <CgSearchLoading className="text-zinc-700" size={150} />
+            <span className="font-bold text-2xl">Loading</span>
+            <p className="text-zinc-500">Redirecting...</p>
+        </div>
     )
 }
