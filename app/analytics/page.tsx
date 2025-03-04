@@ -6,6 +6,7 @@ import Analytics from "@/components/analytics";
 import Image from "next/image";
 import { FaLink } from "react-icons/fa6";
 import Link from "next/link";
+import shorten from "@/utils/shorten";
 
 export default function Page() {
     const [data, setData] = useState<[AnalyticsFormat]>();
@@ -16,11 +17,13 @@ export default function Page() {
         async function fetchData() {
             const { searchParams } = new URL(window.location.href);
             const shortUrl = searchParams.get("shortUrl");
-            const response = await analytics.getAnalytics(shortUrl || "");
-            if (response?.success) {
-                setData(response.data.analytics);
-            } else {
-                setError(response?.message);
+            if (shortUrl) {
+                const response = await analytics.getAnalytics(shortUrl || "");
+                if (response?.success) {
+                    setData(response.data.analytics);
+                } else {
+                    setError(response?.message);
+                }
             }
         }
         fetchData();
@@ -60,13 +63,13 @@ export default function Page() {
                                 className="sm:w-82 h-12 sm:px-5 rounded-3xl focus:outline-none w-48 p-2"
                                 onChange={(e) => setShortUrl(e.target.value)}
                             />
-                            <Link href={`${shortUrl?.startsWith("http") ? shortUrl : "/analytics?shortUrl=" + shortUrl}`}>
+                            <a href={`${shortUrl?.startsWith("http") && shortUrl.startsWith(process.env.NEXT_PUBLIC_APP_URL || "") ? shortUrl : "/analytics?shortUrl=" + shortUrl}`}>
                                 <button
                                     className="bg-[#fdaa6b] hover:bg-[#fc987a] text-black font-semibold h-12 sm:w-32 rounded-3xl flex items-center justify-center ml-2 cursor-pointer w-28"
                                 >
                                     Analyze
                                 </button>
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </div>

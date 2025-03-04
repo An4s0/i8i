@@ -9,7 +9,7 @@ import analytics from "@/db/schemas/analytics";
 export async function POST(req: NextRequest): Promise<NextResponse<ResponseFormat>> {
     try {
         await connect();
-        const { originalUrl } = await req.json();
+        const { originalUrl, days, password } = await req.json();
 
         if (!checkUrl(originalUrl))
             return NextResponse.json({
@@ -37,6 +37,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<ResponseForma
 
         new URLSchema({
             originalUrl,
+            days,
+            password,
             shortUrl: randomShortUrl
         }).save();
 
@@ -75,6 +77,11 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
                 success: false,
                 message: "URL not found"
             } as ResponseFormat, { status: 404 });
+
+
+        const expiryDate = new Date(findUrl.createdAt);
+        expiryDate.setDate(expiryDate.getDate() + findUrl.days);
+        if (expiryDate < new Date()) await URLSchema.findOneAndDelete({ shortUrl });
 
 
         new analytics({

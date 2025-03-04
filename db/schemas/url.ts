@@ -9,6 +9,13 @@ const URLSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    password: {
+        type: String,
+    },
+    days: {
+        type: Number,
+        default: 7
+    },
     createdAt: {
         type: Date,
         default: Date.now,

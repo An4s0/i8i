@@ -14,9 +14,9 @@ const shorten = {
             return error.response.data;
         }
     },
-    create: async (originalUrl: string) => {
+    create: async (originalUrl: string, days: number, password: string) => {
         try {
-            const response = await axios.post(`/api/shorten`, { originalUrl });
+            const response = await axios.post(`/api/shorten`, { originalUrl, days, password });
 
             if (response.status === 200) {
                 return response.data;

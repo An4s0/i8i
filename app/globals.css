@@ -19,3 +19,4 @@ body {
 .social {
   @apply hover:text-zinc-300 text-zinc-400;
 }
+
