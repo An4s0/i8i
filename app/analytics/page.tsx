@@ -2,11 +2,9 @@
 import { useState, useEffect } from "react";
 import analytics from "@/utils/analytics";
 import AnalyticsFormat from "@/types/analyticsFormat";
-import Analytics from "@/components/analytics";
+import Analytics from "@/app/analytics/users.line";
 import Image from "next/image";
 import { FaLink } from "react-icons/fa6";
-import Link from "next/link";
-import shorten from "@/utils/shorten";
 
 export default function Page() {
     const [data, setData] = useState<[AnalyticsFormat]>();

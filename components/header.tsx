@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SiGoogledocs, SiGithub } from "react-icons/si";
+import { SiGoogledocs, SiGithub, SiNpm } from "react-icons/si";
 
 export default function Navbar() {
 
@@ -8,7 +8,14 @@ export default function Navbar() {
         <nav className="p-4 border-b border-zinc-800">
             <div className="max-w-7xl mx-auto flex items-center justify-between w-full">
                 <Link href="/">
-                    <Image src="/logo.svg" alt="i8i" width={38} height={38} />
+                    <Image
+                        src="/logo.svg"
+                        alt="i8i"
+                        width={0}
+                        height={0}
+                        style={{ height: 'auto', width: '38px' }}
+                        priority
+                         />
                 </Link>
                 <div className="flex items-center space-x-4">
                     <Link href={"/"} className="links">
@@ -26,6 +33,10 @@ export default function Navbar() {
                     </Link>
                     <Link href={"https://ianas.me/posts/i8i"} className="social">
                         <SiGoogledocs size={20} />
+                    </Link>
+                    <hr className="h-6 border-l border-zinc-800" />
+                    <Link href={"https://www.npmjs.com/package/i8i"} className="social">
+                        <SiNpm size={20} />
                     </Link>
                 </div>
             </div>
