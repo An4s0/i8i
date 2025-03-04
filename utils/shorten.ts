@@ -18,7 +18,7 @@ const shorten = {
         try {
             const response = await axios.post(`/api/shorten`, { originalUrl });
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 return response.data;
             }
 

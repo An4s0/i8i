@@ -29,13 +29,13 @@ export default function Home() {
     try {
       const originalUrl = document.querySelector('input')?.value;
 
-      const res = await shorten.create(originalUrl as string);
+      const response = await shorten.create(originalUrl as string);
 
-      if (res.success) {
-        setShortenedUrl(res.data.shortUrl);
+      if (response.success) {
+        setShortenedUrl(response.data.shortUrl);
         document.querySelector('input')!.value = '';
       } else {
-        alert(res.message);
+        alert(response.message);
       }
     } catch (error) {
       console.error(error);
