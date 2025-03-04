@@ -9,7 +9,6 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
         await connect();
         const { searchParams } = new URL(req.url);
         const shortUrl = searchParams.get("shortUrl");
-        console.log(shortUrl);
 
         if (!shortUrl)
             return NextResponse.json({
