@@ -97,7 +97,7 @@ export default function Analytics({
                 });
             }
         }
-    }, [data, countries, browsers, operatingSystems]);
+    }, [data]);
 
     return (
         <div className='flex flex-col max-w-7xl space-y-4 m-auto mt-2'>
