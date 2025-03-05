@@ -8,18 +8,7 @@ export default function Navbar() {
         <nav className="p-4 border-b border-zinc-800">
             <div className="max-w-7xl mx-auto flex items-center justify-between w-full">
                 <Link href="/">
-<<<<<<< HEAD:components/Navbar.tsx
                     <Image src="/logo.svg" alt="i8i" width={0} height={0} className="w-11" />
-=======
-                    <Image
-                        src="/logo.svg"
-                        alt="i8i"
-                        width={0}
-                        height={0}
-                        style={{ height: 'auto', width: '38px' }}
-                        priority
-                         />
->>>>>>> origin/main:components/header.tsx
                 </Link>
                 <div className="flex items-center space-x-4">
                     <Link href={"/"} className="links">

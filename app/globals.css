@@ -1,36 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0f0f0f;
-  --foreground: #fff;
+    --background: #0f0f0f;
+    --foreground: #fff;
 }
 
 @theme {
-  --color-primary: #fdaa6b;
-  --color-primary-hover: #fc987a;
+    --color-primary: #fdaa6b;
+    --color-primary-hover: #fc987a;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  overflow-x: hidden;
+    color: var(--foreground);
+    background: var(--background);
+    overflow-x: hidden;
 }
 
 
 .links {
-  @apply hover:underline text-zinc-200 font-semibold;
+    @apply hover:underline text-zinc-200 font-semibold;
 }
 
 .social {
-  @apply hover:text-zinc-300 text-zinc-400;
+    @apply hover:text-zinc-300 text-zinc-400;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 input[type="number"] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
