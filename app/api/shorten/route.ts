@@ -5,10 +5,28 @@ import analyticsSchema from "@/db/schemas/analytics";
 import shortenRequestBody from "@/types/shortenRequestBody";
 import ResponseFormat from "@/types/responseFormat";
 import generateRandomString from "@/helpers/generateRandomString";
+import rateLimit from "@/helpers/rateLimit";
+import mongoose from "mongoose";
 
 export async function POST(req: NextRequest): Promise<NextResponse<ResponseFormat>> {
     try {
         await connect();
+
+        const ipAddress = req.headers.get("x-real-ip") || req.headers.get("x-forwarded-for") || "Unknown";
+        if (!ipAddress || ipAddress === "Unknown") {
+            return NextResponse.json({
+                success: false,
+                message: "Invalid IP address"
+            } as ResponseFormat, { status: 400 });
+        }
+
+        const rateLimitResponse = rateLimit(ipAddress);
+        if (rateLimitResponse && !rateLimitResponse.allowed) {
+            return NextResponse.json({
+                success: false,
+                message: rateLimitResponse.message
+            } as ResponseFormat, { status: 429 });
+        }
 
         const body = await req.text();
         if (!body)
@@ -16,6 +34,12 @@ export async function POST(req: NextRequest): Promise<NextResponse<ResponseForma
                 success: false,
                 message: "Empty request body"
             } as ResponseFormat, { status: 400 });
+
+        if (body.length > 1024)
+            return NextResponse.json({
+                success: false,
+                message: "Request body is too large"
+            } as ResponseFormat, { status: 413 });
 
         let parsedBody: shortenRequestBody;
         try {
@@ -58,9 +82,9 @@ export async function POST(req: NextRequest): Promise<NextResponse<ResponseForma
 
         await new urlSchema({
             originalUrl,
-            days,
             password,
-            shortUrl: randomShortUrl
+            shortUrl: randomShortUrl,
+            expiresAt: days ? new Date(Date.now() + days * 24 * 60 * 60 * 1000) : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
         }).save();
 
         return NextResponse.json({
@@ -72,10 +96,16 @@ export async function POST(req: NextRequest): Promise<NextResponse<ResponseForma
         } as ResponseFormat);
 
     } catch (error) {
-        console.error("Error in POST Shorten:", error instanceof Error ? error.message : error);
+        if (error instanceof mongoose.Error.ValidationError)
+            return NextResponse.json({
+                success: false,
+                message: "Validation error: " + error.message,
+            } as ResponseFormat, { status: 400 });
+        console.error("Error in POST shorten:", error instanceof Error ? error.message : error);
+        const isDev = process.env.NODE_ENV === "development";
         return NextResponse.json({
             success: false,
-            message: "Server error"
+            message: isDev ? error instanceof Error ? error.message : error : "Server error"
         } as ResponseFormat, { status: 500 });
     }
 }
@@ -107,16 +137,6 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
                 message: "Incorrect password"
             } as ResponseFormat, { status: 401 });
 
-        const expiryDate = new Date(findUrl.createdAt);
-        expiryDate.setDate(expiryDate.getDate() + (findUrl?.days || 0));
-        if (expiryDate < new Date()) {
-            await urlSchema.findOneAndDelete({ shortUrl });
-            return NextResponse.json({
-                success: false,
-                message: "URL has expired"
-            } as ResponseFormat, { status: 410 });
-        }
-
         await new analyticsSchema({
             shortUrl,
             ipAddress: req.headers.get("x-real-ip") || req.headers.get("x-forwarded-for") || "Unknown",
@@ -131,10 +151,11 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
             }
         } as ResponseFormat);
     } catch (error) {
-        console.error("Error in GET Shorten:", error instanceof Error ? error.message : error);
+        console.error("Error in GET shorten:", error instanceof Error ? error.message : error);
+        const isDev = process.env.NODE_ENV === "development";
         return NextResponse.json({
             success: false,
-            message: "Server error"
+            message: isDev ? error instanceof Error ? error.message : error : "Server error"
         } as ResponseFormat, { status: 500 });
     }
 }
