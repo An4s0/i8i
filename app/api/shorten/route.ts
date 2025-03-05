@@ -44,7 +44,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<ResponseForma
         let parsedBody: ShortenRequestBody;
         try {
             parsedBody = JSON.parse(body) as ShortenRequestBody;
-        } catch (error) {
+        } catch (_error) {
             return NextResponse.json({
                 success: false,
                 message: "Invalid JSON"

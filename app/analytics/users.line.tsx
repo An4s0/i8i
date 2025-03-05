@@ -35,9 +35,9 @@ export default function Analytics({
                     lastDays = getLastDays(14);
                 }
 
-                let tempCountries = [...countries];
-                let tempBrowsers = [...browsers];
-                let tempOperatingSystems = [...operatingSystems];
+                const tempCountries = [...countries];
+                const tempBrowsers = [...browsers];
+                const tempOperatingSystems = [...operatingSystems];
 
                 data.forEach(d => {
                     const day = new Date(d.time).getDate();
@@ -97,7 +97,7 @@ export default function Analytics({
                 });
             }
         }
-    }, [data]);
+    }, [data, countries, browsers, operatingSystems]);
 
     return (
         <div className='flex flex-col max-w-7xl space-y-4 m-auto mt-2'>
