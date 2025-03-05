@@ -2,6 +2,21 @@
   "name": "i8i",
   "version": "0.1.2",
   "private": true,
+  "author": {
+    "name": "Anas Almutary",
+    "email": "me+contact@ianas.me",
+    "url": "https://ianas.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/An4s0/i8i"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/An4s0/i8i/issues"
+  },
+  "homepage": "https://i8i.pw",
+  "description": "Powerful open-source URL shortener with custom links, analytics, and security.",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
