@@ -13,7 +13,7 @@ export default function Input({
     placeholder?: string,
     value?: string | number,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    icon?: any,
+    icon?: React.ElementType,
     label?: string,
     id?: string
 }) {
