@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import analyticsFormat from "@/types/analyticsFormat";
-import { Chart, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController } from 'chart.js';
-Chart.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController);
+import { Chart, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController, Filler } from 'chart.js';
+Chart.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController, Filler);
 
 import getLastDays from '@/helpers/getLastDays';
 
@@ -77,7 +77,7 @@ export default function Analytics({
                             {
                                 label: 'Visits last ' + lastDays.length + ' days',
                                 data: dataCounts,
-                                backgroundColor: 'rgba(252,169,107,255)',
+                                backgroundColor: 'rgba(252,169,107,0.15)',
                                 borderColor: 'rgba(252,169,107,255)',
                                 borderWidth: 3,
                                 fill: true,
@@ -104,7 +104,7 @@ export default function Analytics({
             <div className='flex border p-4 border-border rounded-lg'>
                 <canvas ref={chartRef}></canvas>
             </div>
-            <div className='grid grid-cols-3 gap-4'>
+            <div className='grid gap-4 md:grid-cols-3'>
                 <div className='flex flex-col border border-border rounded-lg'>
                     <p className='text-lg font-bold m-3'>
                         Countries

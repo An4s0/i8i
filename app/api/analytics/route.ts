@@ -30,9 +30,7 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
         const analyticsData = await Promise.all(analytics.map(async (data) => {
             const { device, browser, os } = UAParser(data.userAgent);
             const country = await getCountryFromIP(data.ipAddress);
-            console.log(device)
-            console.log(browser)
-            console.log(os)
+
             return {
                 shortUrl: data.shortUrl,
                 device: device || "Unknown",
