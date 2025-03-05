@@ -39,8 +39,8 @@ export default function Page() {
                         <Image
                             src="/bg.svg"
                             alt="bg"
-                            layout="fill"
-                            objectFit="cover"
+                            fill
+                            style={{ objectFit: 'cover' }}
                             className=' rounded-4xl'
                         />
                     </div>

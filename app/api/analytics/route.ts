@@ -3,6 +3,8 @@ import connect from "@/db";
 import urlSchema from "@/db/schemas/url";
 import analyticsSchema from "@/db/schemas/analytics";
 import ResponseFormat from "@/types/responseFormat";
+import { UAParser } from "ua-parser-js";
+import getCountryFromIP from "@/helpers/getCountryFromIP";
 
 export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat>> {
     try {
@@ -25,11 +27,27 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
 
         const analytics = await analyticsSchema.find({ shortUrl });
 
+        const analyticsData = await Promise.all(analytics.map(async (data) => {
+            const { device, browser, os } = UAParser(data.userAgent);
+            const country = await getCountryFromIP(data.ipAddress);
+            console.log(device)
+            console.log(browser)
+            console.log(os)
+            return {
+                shortUrl: data.shortUrl,
+                device: device || "Unknown",
+                browser: browser?.name || "Unknown",
+                os: os?.name || "Unknown",
+                country: country,
+                time: data.createdAt
+            };
+        }));
+
         return NextResponse.json({
             success: true,
             message: "Analytics fetched successfully",
             data: {
-                analytics
+                analytics: analyticsData
             }
         } as ResponseFormat);
     } catch (error) {

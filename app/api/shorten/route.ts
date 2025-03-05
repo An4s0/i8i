@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import connect from "@/db";
 import urlSchema from "@/db/schemas/url";
 import analyticsSchema from "@/db/schemas/analytics";
-import shortenRequestBody from "@/types/shortenRequestBody";
+import ShortenRequestBody from "@/types/shortenRequestBody";
 import ResponseFormat from "@/types/responseFormat";
 import generateRandomString from "@/helpers/generateRandomString";
 import rateLimit from "@/helpers/rateLimit";
@@ -41,9 +41,9 @@ export async function POST(req: NextRequest): Promise<NextResponse<ResponseForma
                 message: "Request body is too large"
             } as ResponseFormat, { status: 413 });
 
-        let parsedBody: shortenRequestBody;
+        let parsedBody: ShortenRequestBody;
         try {
-            parsedBody = JSON.parse(body) as shortenRequestBody;
+            parsedBody = JSON.parse(body) as ShortenRequestBody;
         } catch (error) {
             return NextResponse.json({
                 success: false,
