@@ -7,6 +7,7 @@ import ResponseFormat from "@/types/responseFormat";
 export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat>> {
     try {
         await connect();
+
         const { searchParams } = new URL(req.url);
         const shortUrl = searchParams.get("shortUrl");
 
@@ -16,8 +17,8 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
                 message: "Short URL not provided"
             } as ResponseFormat, { status: 400 });
 
-        const findUrl = await urlSchema.findOne({ shortUrl });
-        if (!findUrl)
+        const existingUrl = await urlSchema.exists({ shortUrl });
+        if (!existingUrl)
             return NextResponse.json({
                 success: false,
                 message: "URL not found"
@@ -33,10 +34,11 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
             }
         } as ResponseFormat);
     } catch (error) {
-        console.error("Error in GET Analytics:", error);
+        console.error("Error in GET شnalytics:", error instanceof Error ? error.message : error);
+        const isDev = process.env.NODE_ENV === "development";
         return NextResponse.json({
             success: false,
-            message: "Server error"
+            message: isDev ? error instanceof Error ? error.message : error : "Server error"
         } as ResponseFormat, { status: 500 });
     }
-}
+};
