@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const URLSchema = new mongoose.Schema({
+const urlSchema = new mongoose.Schema({
     originalUrl: {
         type: String,
         required: true,
@@ -22,4 +22,4 @@ const URLSchema = new mongoose.Schema({
     },
 });
 
-export default mongoose.models.URL || mongoose.model('URL', URLSchema);
+export default mongoose.models.URL || mongoose.model('URL', urlSchema);

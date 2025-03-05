@@ -1,8 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
 import connect from "@/db";
+import urlSchema from "@/db/schemas/url";
+import analyticsSchema from "@/db/schemas/analytics";
 import ResponseFormat from "@/types/responseFormat";
-import URLSchema from "@/db/schemas/url";
-import AnalyticsSchema from "@/db/schemas/analytics";
 
 export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat>> {
     try {
@@ -16,14 +16,14 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
                 message: "Short URL not provided"
             } as ResponseFormat, { status: 400 });
 
-        const findUrl = await URLSchema.findOne({ shortUrl });
+        const findUrl = await urlSchema.findOne({ shortUrl });
         if (!findUrl)
             return NextResponse.json({
                 success: false,
                 message: "URL not found"
             } as ResponseFormat, { status: 404 });
 
-        const analytics = await AnalyticsSchema.find({ shortUrl });
+        const analytics = await analyticsSchema.find({ shortUrl });
 
         return NextResponse.json({
             success: true,

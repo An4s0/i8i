@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const AnalyticsSchema = new mongoose.Schema({
+const analyticsSchema = new mongoose.Schema({
     shortUrl: {
         type: String,
         required: true,
@@ -19,4 +19,4 @@ const AnalyticsSchema = new mongoose.Schema({
     },
 });
 
-export default mongoose.models.Analytics || mongoose.model('Analytics', AnalyticsSchema);
+export default mongoose.models.Analytics || mongoose.model('Analytics', analyticsSchema);
