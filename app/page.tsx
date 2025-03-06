@@ -6,6 +6,7 @@ import shorten from '@/utils/shorten';
 import MainLayout from '@/components/mainLayout';
 import Input from '@/components/ui/input';
 import Button from '@/components/ui/button';
+import Header from "@/components/header";
 
 export default function Home() {
     const [shortenedUrl, setShortenedUrl] = useState<string | null>(null);
@@ -36,6 +37,7 @@ export default function Home() {
 
     return (
         <MainLayout>
+            <Header />
             <div
                 className="absolute w-full h-10/12 left-1/2 top-1/2 transform -translate-y-1/2 mt-8 hidden lg:block"
             >

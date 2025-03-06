@@ -13,7 +13,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     if (loading) return <Loading />;
 
     return (
-        <main className='p-3'>
+        <main>
             {children}
         </main>
     );

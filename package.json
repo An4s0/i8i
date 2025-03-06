@@ -24,6 +24,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/font": "^14.2.15",
     "axios": "^1.8.1",
     "chart.js": "^4.4.8",
     "mongoose": "^8.11.0",

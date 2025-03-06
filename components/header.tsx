@@ -2,25 +2,38 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiGoogledocs, SiGithub, SiNpm } from "react-icons/si";
 
-export default function Navbar() {
+export default function Navbar({ isDocs }: { isDocs?: boolean }) {
 
     return (
         <nav className="p-4 border-b border-zinc-800">
-            <div className="max-w-7xl mx-auto flex items-center justify-between w-full">
-                <Link href="/">
-                    <Image src="/logo.svg" alt="i8i" width={0} height={0} className="w-11" />
-                </Link>
+            <div className={`${!isDocs ? "max-w-7xl mx-auto" : ""} flex items-center justify-between w-full`}>
                 <div className="flex items-center space-x-4">
-                    <Link href={"/"} className="links">
-                        Home
+                    <Link href="/">
+                        <Image src="/logo.svg" alt="i8i" width={0} height={0} className="w-11" />
                     </Link>
-                    <Link href={"/analytics"} className="links">
-                        Analytics
-                    </Link>
-                    <Link href={"/docs"} className="links">
-                        Docs
-                    </Link>
-                    <hr className="h-6 border-l border-zinc-800" />
+                    {isDocs && (
+                        <>
+                            /&nbsp; <Link href={"/docs"} className="links docs text-lg">
+                                Documentation
+                            </Link>
+                        </>
+                    )}
+                </div>
+                <div className="flex items-center space-x-4">
+                    {!isDocs && (
+                        <>
+                            <Link href={"/"} className="links">
+                                Home
+                            </Link>
+                            <Link href={"/analytics"} className="links">
+                                Analytics
+                            </Link>
+                            <Link href={"/docs"} className="links">
+                                Docs
+                            </Link>
+                            <hr className="h-6 border-l border-zinc-800" />
+                        </>
+                    )}
                     <Link href={"https://github.com/An4s0/i8i"} className="social">
                         <SiGithub size={20} />
                     </Link>
