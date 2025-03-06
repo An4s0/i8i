@@ -41,9 +41,9 @@
 <div id="features">
 
 # Features
-- 📊 Analytics: location, devices and browser. (under development)
+- 📊 Analytics: location, os and browser.
 - 🔒 Password protection for links. (under development)
-- 🕒 Expiration settings for temporary links. (under development)
+- 🕒 Expiration settings for temporary links.
 - 📌 QR code generation. (under development)
 - 📡 API for developers. (under development)
 
@@ -86,10 +86,10 @@ To install and run the i8i URL shortener locally, follow these steps:
 
 # Usage
 
-Once the server is running, you can access the i8i URL shortener by visiting the application in your browser. You can shorten URLs, view analytics (once implemented), and manage your links.
+Once the server is running, you can access the i8i URL shortener by visiting the application in your browser. You can shorten URLs, view analytics, and manage your links.
 
 - **Shorten a URL**: Simply input the long URL you want to shorten and click the "Shorten" button.
-- **Analytics**: Track the performance of your links by checking clicks, user locations, and devices (coming soon).
+- **Analytics**: Track the performance of your links by checking clicks, user locations, os and browsers.
 - **QR Codes**: Generate QR codes for any URL (coming soon).
 
 </div>
@@ -103,6 +103,8 @@ Once the server is running, you can access the i8i URL shortener by visiting the
 - **Tailwind CSS**: Styling
 - **MongoDB**: Database
 - **Vercel**: Deployment
+- **Chart.js**: Charts
+- **UAParser.js**: User agent parsing
 
 </div>
 
@@ -138,4 +140,3 @@ For any inquiries, feel free to reach out:
 - GitHub: [An4s0](https://github.com/An4s0)
 
 </div>
-

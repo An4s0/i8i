@@ -20,13 +20,16 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
             } as ResponseFormat, { status: 400 });
 
         const existingUrl = await urlSchema.exists({ shortUrl });
-        if (!existingUrl)
+        const analytics = await analyticsSchema.find({ shortUrl });
+        if (!existingUrl) {
+            if (analytics.length > 0)
+                await analyticsSchema.deleteMany({ shortUrl });
+
             return NextResponse.json({
                 success: false,
                 message: "URL not found"
             } as ResponseFormat, { status: 404 });
-
-        const analytics = await analyticsSchema.find({ shortUrl });
+        }
 
         const analyticsData = await Promise.all(analytics.map(async (data) => {
             const { device, browser, os } = UAParser(data.userAgent);

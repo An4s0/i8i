@@ -58,7 +58,7 @@ export default function Home() {
                     {error && <p className="text-red-500 mt-2 font-bold">{error}</p>}
                     {shortenedUrl && (
                         <p className="text-sm mt-5 text-zinc-400 sm:text-lg">
-                            Shortened URL:&nbsp;
+                            Your short URL:&nbsp;
                             <a href={`${process.env.NEXT_PUBLIC_APP_URL}/${shortenedUrl}`} className="text-blue-500 underline">
                                 {process.env.NEXT_PUBLIC_APP_URL}/{shortenedUrl}
                             </a>
@@ -96,6 +96,9 @@ export default function Home() {
                         Shorten
                     </Button>
                 </div>
+            </div>
+            <div >
+
             </div>
         </MainLayout>
     );

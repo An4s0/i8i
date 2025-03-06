@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const shorten = {
-    get: async (shortUrl: string) => {
+    get: async (shortUrl: string, password?: string) => {
         try {
-            const response = await axios.get(`/api/shorten?shortUrl=${encodeURIComponent(shortUrl)}`);
+            const response = await axios.get(`/api/shorten?shortUrl=${encodeURIComponent(shortUrl)}${password ? `&password=${password}` : ''}`);
 
             if (response.status === 200) {
                 return response.data;
