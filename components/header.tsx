@@ -1,11 +1,21 @@
+"use client";
+import { useState,useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { SiGoogledocs, SiGithub, SiNpm } from "react-icons/si";
+import { SiGoogledocs, SiGithub } from "react-icons/si";
+import { FaSun,FaMoon } from "react-icons/fa6";
+import { useTheme } from "next-themes";
 
 export default function Navbar({ isDocs }: { isDocs?: boolean }) {
+    const { theme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => setMounted(true), []);
+
+    if (!mounted) return null;
 
     return (
-        <nav className="p-4 border-b border-zinc-800">
+        <nav className="p-4 border-b border-hr">
             <div className={`${!isDocs ? "max-w-7xl mx-auto" : ""} flex items-center justify-between w-full`}>
                 <div className="flex items-center space-x-4">
                     <Link href="/">
@@ -31,7 +41,7 @@ export default function Navbar({ isDocs }: { isDocs?: boolean }) {
                             <Link href={"/docs"} className="links">
                                 Docs
                             </Link>
-                            <hr className="h-6 border-l border-zinc-800" />
+                            <hr className="h-6 border-l border-hr" />
                         </>
                     )}
                     <Link href={"https://github.com/An4s0/i8i"} className="social">
@@ -40,10 +50,10 @@ export default function Navbar({ isDocs }: { isDocs?: boolean }) {
                     <Link href={"https://ianas.me/posts/i8i"} className="social">
                         <SiGoogledocs size={20} />
                     </Link>
-                    <hr className="h-6 border-l border-zinc-800" />
-                    <Link href={"https://www.npmjs.com/package/i8i"} className="social">
-                        <SiNpm size={20} />
-                    </Link>
+                    <hr className="h-6 border-l border-hr" />
+                    <div className="cursor-pointer social" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+                        {theme === "dark" ? <FaSun size={20} /> : <FaMoon size={20} />}
+                    </div>
                 </div>
             </div>
         </nav>
