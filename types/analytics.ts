@@ -1,4 +1,4 @@
-interface AnalyticsFormat {
+export interface AnalyticsFormat {
     shortUrl: string;
     device: string;
     browser: string;
@@ -6,5 +6,3 @@ interface AnalyticsFormat {
     country: string;
     time: string;
 }
-
-export default AnalyticsFormat;

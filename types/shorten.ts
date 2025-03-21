@@ -1,7 +1,5 @@
-type ShortenRequestBody ={
+export interface ShortenRequest {
     originalUrl: string;
     days: number;
     password?: string;
 }
-
-export default ShortenRequestBody;
