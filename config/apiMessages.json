@@ -1,0 +1,35 @@
+{
+  "error": {
+    "invalid": {
+      "ip": "Unable to determine a valid IP address.",
+      "url": "The provided URL is not valid. Please enter a correct and accessible URL.",
+      "shortUrl": "The provided short URL format is invalid.",
+      "password": "Password must be between 6 and 20 characters long.",
+      "days": "Expiration days must be between 1 and 365."
+    },
+    "request": {
+      "empty": "The request body cannot be empty.",
+      "tooLarge": "The request body exceeds the allowed size limit.",
+      "invalidJson": "The request body contains invalid JSON format."
+    },
+    "rateLimit": "Too many requests. Please wait before trying again.",
+    "notFound": "The requested resource was not found.",
+    "unauthorized": "Unauthorized access. Please check your credentials.",
+    "server": "An unexpected server error occurred. Please try again later."
+  },
+  "success": {
+    "shorten": "Your URL has been successfully shortened.",
+    "retrieved": "Data retrieved successfully.",
+    "analytics": "Analytics data retrieved successfully."
+  },
+  "shorten": {
+    "expired": "This short URL has expired.",
+    "protected": "This short URL is password-protected. Please provide a valid password.",
+    "notFound": "The requested short URL was not found.",
+    "incorrectPassword": "The password entered is incorrect. Please try again."
+  },
+  "info": {
+    "rateLimit": "You are approaching the request limit. Please slow down.",
+    "usage": "Shortened URLs will expire based on the selected duration."
+  }
+}
