@@ -10,7 +10,7 @@ export default function Button({
     return (
         <button
             onClick={onClick}
-            className={`bg-primary hover:bg-primary-hover text-black font-semibold h-12 w-48 rounded-3xl mt-5 cursor-pointer ${className}`}
+            className={`bg-primary hover:bg-primary-hover text-black font-semibold h-12 w-48 rounded-xl mt-5 cursor-pointer ${className}`}
         >
             {children}
         </button>
