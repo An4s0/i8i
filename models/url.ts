@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+import mongoose, { Model } from 'mongoose';
+import { Url } from '@/types';
 
 const urlSchema = new mongoose.Schema({
     originalUrl: {
@@ -28,4 +29,12 @@ const urlSchema = new mongoose.Schema({
     },
 });
 
-export default mongoose.models.URL || mongoose.model('URL', urlSchema);
+let UrlModel: Model<Url>;
+
+try {
+    UrlModel = mongoose.model<Url>("urls");
+} catch (error) {
+    UrlModel = mongoose.model<Url>("urls", urlSchema);
+}
+
+export default UrlModel;

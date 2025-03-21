@@ -4,5 +4,5 @@ export interface AnalyticsFormat {
     browser: string;
     os: string;
     country: string;
-    time: string;
+    createdAt: string;
 }

@@ -1,5 +1,5 @@
-import { create } from 'domain';
-import mongoose from 'mongoose';
+import mongoose, { Model, model, models } from 'mongoose';
+import { AnalyticsFormat } from '@/types';
 
 const analyticsSchema = new mongoose.Schema({
     shortUrl: {
@@ -32,4 +32,12 @@ const analyticsSchema = new mongoose.Schema({
     },
 });
 
-export default mongoose.models.Analytics || mongoose.model('Analytics', analyticsSchema);
+let AnalyticsModel: Model<AnalyticsFormat>;
+
+try {
+    AnalyticsModel = mongoose.model<AnalyticsFormat>("analytics");
+} catch (error) {
+    AnalyticsModel = mongoose.model<AnalyticsFormat>("analytics", analyticsSchema);
+}
+
+export default AnalyticsModel;
