@@ -1,23 +1,24 @@
 import { NextResponse, NextRequest } from "next/server";
-import connect from "@/db";
-import urlSchema from "@/db/schemas/url";
-import analyticsSchema from "@/db/schemas/analytics";
-import ShortenRequestBody from "@/types/shortenRequestBody";
-import ResponseFormat from "@/types/responseFormat";
-import generateRandomString from "@/helpers/generateRandomString";
-import rateLimit from "@/helpers/rateLimit";
-import mongoose from "mongoose";
+import { UAParser } from "ua-parser-js";
 
-export async function POST(req: NextRequest): Promise<NextResponse<ResponseFormat>> {
+import connect from "@/lib/db";
+import urlModel from "@/models/url";
+import analyticsModel from "@/models/analytics";
+
+import { APIResponse } from "@/types";
+import { genShortCode, rateLimit, getIP, getCountry } from "@/utils";
+import apiMessages from "@/config/apiMessages.json";
+
+export async function POST(req: NextRequest): Promise<NextResponse<APIResponse>> {
     try {
         await connect();
 
-        const ipAddress = req.headers.get("x-real-ip") || req.headers.get("x-forwarded-for") || "Unknown";
-        if (!ipAddress || ipAddress === "Unknown") {
+        const ipAddress = getIP(req) || "Unknown";
+        if (!ipAddress) {
             return NextResponse.json({
                 success: false,
-                message: "Invalid IP address"
-            } as ResponseFormat, { status: 400 });
+                message: apiMessages.error.invalid.ip
+            } as APIResponse, { status: 400 });
         }
 
         const rateLimitResponse = rateLimit(ipAddress);
@@ -25,93 +26,87 @@ export async function POST(req: NextRequest): Promise<NextResponse<ResponseForma
             return NextResponse.json({
                 success: false,
                 message: rateLimitResponse.message
-            } as ResponseFormat, { status: 429 });
+            } as APIResponse, { status: 429 });
         }
 
         const body = await req.text();
-        if (!body)
+
+        if (!body) {
             return NextResponse.json({
                 success: false,
-                message: "Empty request body"
-            } as ResponseFormat, { status: 400 });
+                message: apiMessages.error.request.empty
+            } as APIResponse, { status: 400 });
+        }
 
-        if (body.length > 1024)
+        if (body.length > 1024) {
             return NextResponse.json({
                 success: false,
-                message: "Request body is too large"
-            } as ResponseFormat, { status: 413 });
+                message: apiMessages.error.request.tooLarge
+            } as APIResponse, { status: 413 });
+        }
 
-        let parsedBody: ShortenRequestBody;
+        let parsedBody;
         try {
-            parsedBody = JSON.parse(body) as ShortenRequestBody;
+            parsedBody = JSON.parse(body);
         } catch (error) {
-            console.error("Error parsing JSON in POST shorten:", error instanceof Error ? error.message : error);
-            return NextResponse.json({
-                success: false,
-                message: "Invalid JSON"
-            } as ResponseFormat, { status: 400 });
+            throw new Error("Invalid JSON");
         }
 
         const { originalUrl, days, password } = parsedBody;
 
-        const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/\S*)?$/;
-        if (!originalUrl || !urlRegex.test(originalUrl))
+        try {
+            new URL(originalUrl);
+        } catch (error) {
             return NextResponse.json({
                 success: false,
-                message: "Invalid URL"
-            } as ResponseFormat, { status: 400 });
+                message: apiMessages.error.invalid.url
+            } as APIResponse, { status: 400 });
+        }
 
-        if (days != null && (days < 1 || days > 365))
+        if (days != null && (days < 1 || days > 365)) {
             return NextResponse.json({
                 success: false,
-                message: "Days must be between 1 and 365"
-            } as ResponseFormat, { status: 400 });
+                message: apiMessages.error.invalid.days
+            } as APIResponse, { status: 400 });
+        }
 
-        if (password != null && (password.length < 6 || password.length > 20))
+        if (password != null && (password.length < 6 || password.length > 20)) {
             return NextResponse.json({
                 success: false,
-                message: "Password must be between 6 and 20 characters"
-            } as ResponseFormat, { status: 400 });
+                message: apiMessages.error.invalid.password
+            } as APIResponse, { status: 400 });
+        }
 
-        let randomShortUrl;
-        let existingShortUrl;
-        do {
-            randomShortUrl = generateRandomString(4);
-            existingShortUrl = await urlSchema.findOne({ shortUrl: randomShortUrl });
-            if (!existingShortUrl) break;
-        } while (true);
+        const randomShortUrl = await genShortCode();
 
-        await new urlSchema({
+        await new urlModel({
             originalUrl,
             password,
             shortUrl: randomShortUrl,
-            expiresAt: days ? new Date(Date.now() + days * 24 * 60 * 60 * 1000) : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            expiresAt: new Date(Date.now() + (days ?? 7) * 86400000)
         }).save();
 
         return NextResponse.json({
             success: true,
-            message: "URL shortened successfully",
+            message: apiMessages.success.shorten,
             data: {
                 shortUrl: randomShortUrl
             }
-        } as ResponseFormat);
+        } as APIResponse);
 
     } catch (error) {
-        if (error instanceof mongoose.Error.ValidationError)
-            return NextResponse.json({
-                success: false,
-                message: "Validation error: " + error.message,
-            } as ResponseFormat, { status: 400 });
-        console.error("Error in POST shorten:", error instanceof Error ? error.message : error);
-        const isDev = process.env.NODE_ENV === "development";
+        if (process.env.NODE_ENV === "development") {
+            console.error("Error in POST shorten:", error);
+        }
+
         return NextResponse.json({
             success: false,
-            message: isDev ? error instanceof Error ? error.message : error : "Server error"
-        } as ResponseFormat, { status: 500 });
+            message: apiMessages.error.server
+        } as APIResponse, { status: 500 });
     }
 }
 
-export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat>> {
+export async function GET(req: NextRequest): Promise<NextResponse<APIResponse>> {
     try {
         await connect();
 
@@ -119,44 +114,57 @@ export async function GET(req: NextRequest): Promise<NextResponse<ResponseFormat
         const shortUrl = searchParams.get("shortUrl");
         const password = searchParams.get("password");
 
-        if (!shortUrl)
+        if (!shortUrl) {
             return NextResponse.json({
                 success: false,
-                message: "Short URL not provided"
-            } as ResponseFormat, { status: 400 });
+                message: apiMessages.error.invalid.shortUrl
+            } as APIResponse, { status: 400 });
+        }
 
-        const findUrl = await urlSchema.findOne({ shortUrl });
-        if (!findUrl)
+        const findShortUrl = await urlModel.findOne({ shortUrl });
+        if (!findShortUrl) {
             return NextResponse.json({
                 success: false,
-                message: "URL not found"
-            } as ResponseFormat, { status: 404 });
+                message: apiMessages.shorten.notFound
+            } as APIResponse, { status: 404 });
+        }
 
-        if (findUrl.password && findUrl.password !== password)
+        if (findShortUrl.password && (!password || findShortUrl.password !== password)) {
             return NextResponse.json({
                 success: false,
-                message: "Incorrect password"
-            } as ResponseFormat, { status: 401 });
+                message: apiMessages.shorten.incorrectPassword
+            } as APIResponse, { status: 401 });
+        }
 
-        await new analyticsSchema({
+        const ipAddress = getIP(req) || "Unknown";
+        const parser = new UAParser(req.headers.get("user-agent") || "Unknown");
+        const country = await getCountry(ipAddress);
+
+        await new analyticsModel({
             shortUrl,
-            ipAddress: req.headers.get("x-real-ip") || req.headers.get("x-forwarded-for") || "Unknown",
-            userAgent: req.headers.get("user-agent"),
+            ipAddress,
+            country,
+            browser: parser.getBrowser().name || "Unknown",
+            os: parser.getOS().name || "Unknown",
+            device: parser.getDevice().type || "Desktop"
         }).save();
 
         return NextResponse.json({
             success: true,
-            message: "URL found",
+            message: apiMessages.success.retrieved,
             data: {
-                originalUrl: findUrl.originalUrl
+                originalUrl: findShortUrl.originalUrl
             }
-        } as ResponseFormat);
+        } as APIResponse);
+
     } catch (error) {
-        console.error("Error in GET shorten:", error instanceof Error ? error.message : error);
-        const isDev = process.env.NODE_ENV === "development";
+        if (process.env.NODE_ENV === "development") {
+            console.error("Error in GET shorten:", error);
+        }
+
         return NextResponse.json({
             success: false,
-            message: isDev ? error instanceof Error ? error.message : error : "Server error"
-        } as ResponseFormat, { status: 500 });
+            message: apiMessages.error.server
+        } as APIResponse, { status: 500 });
     }
 }
