@@ -41,9 +41,7 @@ export async function GET(req: NextRequest): Promise<NextResponse<APIResponse>> 
             }
         } as APIResponse);
     } catch (error) {
-        if (process.env.NODE_ENV === "development") {
-            console.error("Error in GET analytics:", error);
-        }
+        console.error("Error in GET analytics:", error);
 
         return NextResponse.json({
             success: false,

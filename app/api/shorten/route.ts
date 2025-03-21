@@ -49,7 +49,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<APIResponse>>
         try {
             parsedBody = JSON.parse(body);
         } catch (error) {
-            throw new Error("Invalid JSON");
+            console.error("Error parsing JSON:", error);
         }
 
         const { originalUrl, days, password } = parsedBody;
@@ -57,6 +57,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<APIResponse>>
         try {
             new URL(originalUrl);
         } catch (error) {
+            console.error("Error parsing URL:", error);
             return NextResponse.json({
                 success: false,
                 message: apiMessages.error.invalid.url
@@ -95,9 +96,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<APIResponse>>
         } as APIResponse);
 
     } catch (error) {
-        if (process.env.NODE_ENV === "development") {
-            console.error("Error in POST shorten:", error);
-        }
+        console.error("Error in POST shorten:", error);
 
         return NextResponse.json({
             success: false,
@@ -158,9 +157,7 @@ export async function GET(req: NextRequest): Promise<NextResponse<APIResponse>> 
         } as APIResponse);
 
     } catch (error) {
-        if (process.env.NODE_ENV === "development") {
-            console.error("Error in GET shorten:", error);
-        }
+        console.error("Error in GET shorten:", error);
 
         return NextResponse.json({
             success: false,

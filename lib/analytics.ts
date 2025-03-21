@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { APIResponse } from "@/types";
 
 const analytics = {
     getAnalytics: async (shortUrl: string) => {
@@ -10,8 +11,11 @@ const analytics = {
             }
 
             throw new Error('Error while fetching analytics');
-        } catch (error: any) {
-            return error.response.data;
+        } catch (error) {
+            if (error instanceof AxiosError && error.response) {
+                return error.response.data as APIResponse;
+            }
+            return { success: false, message: "An unexpected error occurred" } as APIResponse;
         }
     }
 }
