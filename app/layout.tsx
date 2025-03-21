@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ThemeProvider from "@/providers/ThemeProvider";
+import Header from "@/components/header";
+import MainLayout from "@/components/mainLayout";
 
 export const metadata: Metadata = {
     title: "i8i - URL Shortener",
@@ -13,7 +16,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        site: "@i8i_pw",
+        site: "@AnasAlmutary",
         title: "i8i - URL Shortener",
         description: "i8i is a URL shortener offering custom links, analytics, passwords, QR codes, and an API for seamless integration.",
     },
@@ -31,7 +34,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <head>
                 <link
                     href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap"
@@ -39,7 +42,12 @@ export default function RootLayout({
                 />
             </head>
             <body>
-                {children}
+                <ThemeProvider>
+                    <MainLayout>
+                        <Header />
+                        {children}
+                    </MainLayout>
+                </ThemeProvider>
             </body>
         </html>
     );

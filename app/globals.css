@@ -1,16 +1,42 @@
-@import "tailwindcss/index.css";
+@import "tailwindcss";
 
 :root {
-    --background: #0f0f0f;
+    --background: #f7f7f7;
+    --foreground: #000;
+
+    --color-subtle: #444444;
+
+    --color-border: #e4e4e4;
+
+    --color-hr: #e4e4e4;
+
+    --color-links: #4b4b4b;
+    --color-links-hover: #000;
+}
+
+.dark {
+    --background: #1a1a1a;
     --foreground: #fff;
+
+    --color-subtle: #999999;
+
+    --color-border: #363636;
+
+    --color-hr: #363636;
+
+    --color-links: #cacaca;
+    --color-links-hover: #fff4f7;
 }
 
 @theme {
+    --color-subtle: var(--color-subtle);
+    --color-hr: var(--color-hr);
+    --color-border: var(--color-border);
     --color-primary: #fdaa6b;
-    --color-primary-dc-hover: #222222;
     --color-primary-hover: #fc987a;
-    --color-border: #fdaa6b3d;
 }
+
+
 
 body {
     color: var(--foreground);
@@ -18,23 +44,13 @@ body {
     overflow-x: hidden;
 }
 
-
 .links {
-    @apply hover:underline text-zinc-200 font-semibold;
+    color: var(--color-links);
+    @apply font-semibold;
 }
 
-.social {
-    @apply hover:text-zinc-300 text-zinc-400;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-input[type="number"] {
-    -moz-appearance: textfield;
+.links:hover {
+    color: var(--color-links-hover);
 }
 
 .docs {

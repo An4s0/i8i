@@ -70,7 +70,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<APIResponse>>
             } as APIResponse, { status: 400 });
         }
 
-        if (password != null && (password.length < 6 || password.length > 20)) {
+        if (password != '' && (password.length < 6 || password.length > 20)) {
             return NextResponse.json({
                 success: false,
                 message: apiMessages.error.invalid.password
@@ -129,7 +129,7 @@ export async function GET(req: NextRequest): Promise<NextResponse<APIResponse>> 
             } as APIResponse, { status: 404 });
         }
 
-        if (findShortUrl.password && (!password || findShortUrl.password !== password)) {
+        if (findShortUrl.password && findShortUrl.password !== password) {
             return NextResponse.json({
                 success: false,
                 message: apiMessages.shorten.incorrectPassword

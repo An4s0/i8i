@@ -1,15 +1,15 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
-import analyticsFormat from "@/types/analyticsFormat";
+import { useEffect, useRef, useState, useMemo } from 'react';
+import { AnalyticsFormat } from "@/types";
 import { Chart, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController, Filler } from 'chart.js';
 Chart.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController, Filler);
 
-import getLastDays from '@/helpers/getLastDays';
+import { getLastDays } from '@/utils';
 
 export default function Analytics({
     data
 }: {
-    data: [analyticsFormat]
+    data: [AnalyticsFormat]
 }) {
     const chartRef = useRef<HTMLCanvasElement | null>(null);
     const chartInstanceRef = useRef<Chart | null>(null);
@@ -40,8 +40,12 @@ export default function Analytics({
                 const tempOperatingSystems = [...operatingSystems];
 
                 data.forEach(d => {
-                    const day = new Date(d.time).getDate();
-                    dataCounts[day] += 1;
+                    const date = new Date(d.createdAt);
+                    const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    const index = lastDays.indexOf(formattedDate);
+                    if (index !== -1) {
+                        dataCounts[index] += 1;
+                    }
 
                     const existingCountry = tempCountries.find(c => c.country === d.country);
                     if (existingCountry) {
@@ -99,6 +103,21 @@ export default function Analytics({
         }
     }, [data]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (chartInstanceRef.current) {
+                chartInstanceRef.current.resize();
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+
     return (
         <div className='flex flex-col max-w-7xl space-y-4 m-auto mt-2'>
             <div className='flex border p-4 border-border rounded-lg'>
@@ -116,9 +135,10 @@ export default function Analytics({
                             return (
                                 <div
                                     key={i}
-                                    className='px-2 py-1 flex justify-between rounded-md mt-2'
+                                    className='px-2 py-1 flex justify-between rounded-md mt-2 bg-gradient-to-r from-hr to-hr'
                                     style={{
-                                        background: `linear-gradient(90deg, #181818 ${percentage}%, #00000000 ${percentage}%)`
+                                        backgroundSize: `${percentage}% 100%`,
+                                        backgroundRepeat: "no-repeat"
                                     }}
                                 >
                                     <p>{c.country}</p>
@@ -139,9 +159,10 @@ export default function Analytics({
                             return (
                                 <div
                                     key={i}
-                                    className='px-2 py-1 flex justify-between rounded-md mt-2'
+                                    className='px-2 py-1 flex justify-between rounded-md mt-2 bg-gradient-to-r from-hr to-hr'
                                     style={{
-                                        background: `linear-gradient(90deg, #181818 ${percentage}%, #00000000 ${percentage}%)`
+                                        backgroundSize: `${percentage}% 100%`,
+                                        backgroundRepeat: "no-repeat"
                                     }}
                                 >
                                     <p>{c.browser}</p>
@@ -162,9 +183,10 @@ export default function Analytics({
                             return (
                                 <div
                                     key={i}
-                                    className='px-2 py-1 flex justify-between rounded-md mt-2'
+                                    className='px-2 py-1 flex justify-between rounded-md mt-2 bg-gradient-to-r from-hr to-hr'
                                     style={{
-                                        background: `linear-gradient(90deg, #181818 ${percentage}%, #00000000 ${percentage}%)`
+                                        backgroundSize: `${percentage}% 100%`,
+                                        backgroundRepeat: "no-repeat"
                                     }}
                                 >
                                     <p>{c.os}</p>
