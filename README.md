@@ -36,13 +36,13 @@
   <a href="#contact">Contact</a>
 </p>
 
-![screenshot](https://i.imgur.com/hWVSHuK.png)
+![screenshot](./screenshots/image.png)
 
 <div id="features">
 
 # Features
 - 📊 Analytics: location, os and browser.
-- 🔒 Password protection for links. (under development)
+- 🔒 Password protection for links. 
 - 🕒 Expiration settings for temporary links.
 - 📌 QR code generation. (under development)
 - 📡 API for developers. (under development)
@@ -102,7 +102,7 @@ Once the server is running, you can access the i8i URL shortener by visiting the
 - **TypeScript**: Language
 - **Tailwind CSS**: Styling
 - **MongoDB**: Database
-- **Vercel**: Deployment
+- **Vercel**: Deployment & Analytics
 - **Chart.js**: Charts
 - **UAParser.js**: User agent parsing
 

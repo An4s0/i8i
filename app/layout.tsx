@@ -3,6 +3,7 @@ import "./globals.css";
 import ThemeProvider from "@/providers/ThemeProvider";
 import Header from "@/components/header";
 import MainLayout from "@/components/mainLayout";
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
     title: "i8i - URL Shortener",
@@ -42,6 +43,7 @@ export default function RootLayout({
                 />
             </head>
             <body>
+                <Analytics />
                 <ThemeProvider>
                     <MainLayout>
                         <Header />
