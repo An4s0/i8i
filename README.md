@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h4 align="center">Powerful open-source URL shortener with custom links, analytics, and security.</h4>
+<h4 align="center">An open-source, powerful, and simple URL shortener with analytics, password protection, and expiration settings.</h4>
 
 <p align="center">
   <a href="https://github.com/An4s0/i8i/stargazers">
@@ -26,117 +26,118 @@
 </a>
 </p>
 
-<p align="center">
+<div id="navigation" align="center">
   <a href="#features">Features</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#usage">Usage</a> •
+  <a href="#getting-started">Getting Started</a> •
   <a href="#technologies-used">Technologies Used</a> •
-  <a href="#deployment">Deployment</a> •
   <a href="#license">License</a> •
   <a href="#contact">Contact</a>
-</p>
+</div>
 
 ![screenshot](./screenshots/image.png)
 
+---
+
 <div id="features">
 
-# Features
-- 📊 Analytics: location, os and browser.
-- 🔒 Password protection for links. 
-- 🕒 Expiration settings for temporary links.
-- 📌 QR code generation. (under development)
-- 📡 API for developers. 
+## Features
+
+- **Analytics**: Track clicks, location, OS, and browser.
+- **Password Protection**: Secure your shortened links.
+- **Expiration Settings**: Set auto-expiring links.
+- **QR Code Generation** _(Coming Soon)_.
+- **Developer API**: Programmatic access for integration.
 
 </div>
 
-<div id="installation">
+---
 
-# Installation
+<div id="getting-started">
 
-To install and run the i8i URL shortener locally, follow these steps:
+## Getting Started
 
-1. Clone the repository:
+### Installation & Running Locally
+
+Follow these steps to set up the project on your machine:
+
+```bash
+# Clone the repository
+git clone https://github.com/An4s0/i8i.git && cd i8i
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+
+# Open in browser
+http://localhost:3000
+```
+
+### Usage
+
+Once running, you can:
+
+- **Shorten a URL**: Paste a long URL and generate a short one.
+- **Track Analytics**: See clicks, location, OS, and browser info.
+- **Generate QR Codes** _(Coming Soon)_.
+
+### Deployment
+
+Deploy on **Vercel, Heroku, or DigitalOcean** by following these steps:
+
+1. **Set up a production database** (e.g., MongoDB Atlas).
+2. **Configure environment variables**:
+   ```env
+   MONGODB_URL=your_mongodb_connection_string
+   NEXT_PUBLIC_APP_URL=https://i8i.pw
+   ```
+3. **Deploy to Vercel**:
    ```bash
-   git clone https://github.com/An4s0/i8i.git
+   vercel
    ```
 
-2. Navigate to the project folder:
-   ```bash
-   cd i8i
-   ```
-
-3. Install the required dependencies:
-   ```bash
-   npm install
-   ```
-
-4. Start the server:
-   ```bash
-   npm run start
-   ```
-
-5. Visit the app in your browser:
-   ```bash
-   http://localhost:3000
-   ```
+For other platforms, push your code and configure the deployment settings accordingly.
 
 </div>
 
-<div id="usage">
-
-# Usage
-
-Once the server is running, you can access the i8i URL shortener by visiting the application in your browser. You can shorten URLs, view analytics, and manage your links.
-
-- **Shorten a URL**: Simply input the long URL you want to shorten and click the "Shorten" button.
-- **Analytics**: Track the performance of your links by checking clicks, user locations, os and browsers.
-- **QR Codes**: Generate QR codes for any URL (coming soon).
-
-</div>
+---
 
 <div id="technologies-used">
 
-# Technologies Used
+## Technologies Used
 
-- **Next.js**: React framework
-- **TypeScript**: Language
-- **Tailwind CSS**: Styling
-- **MongoDB**: Database
-- **Vercel**: Deployment & Analytics
-- **Chart.js**: Charts
-- **UAParser.js**: User agent parsing
-
-</div>
-
-<div id="deployment">
-
-# Deployment
-
-To deploy the i8i URL shortener, you can use cloud platforms like Heroku, Vercel, or DigitalOcean.
-
-1. Set up a production database in MongoDB Atlas or another cloud-based database service.
-2. Configure environment variables in your cloud provider's dashboard:
-   - `MONGODB_URL` for the database connection.
-   - `NEXT_PUBLIC_APP_URL` for the application URL (e.g., `https://i8i.pw`).
-3. Push the code to your cloud platform and configure the deployment settings.
+- **Next.js** – React framework
+- **TypeScript** – Type safety
+- **Tailwind CSS** – Styling
+- **MongoDB** – Database
+- **Vercel** – Deployment & analytics
+- **Chart.js** – Data visualization
+- **UAParser.js** – User agent parsing
 
 </div>
+
+---
 
 <div id="license">
 
-# License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 </div>
 
+---
+
 <div id="contact">
 
-# Contact
+## Contact
 
-For any inquiries, feel free to reach out:
+For any inquiries:
 
 - Email: [me+contact@ianas.me](mailto:me+contact@ianas.me)
 - GitHub: [An4s0](https://github.com/An4s0)
+- X: [@AnasAlmutary](https://x.com/AnasAlmutary)
+- Website: [ianas.me](https://ianas.me)
 
 </div>

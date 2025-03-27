@@ -1,6 +1,22 @@
 {
   "name": "i8i",
+  "version": "0.9.6",
+  "description": "An open-source, powerful, and simple URL shortener with analytics, password protection, and expiration settings.",
   "private": true,
+  "author": {
+    "name": "Anas Almutary",
+    "email": "me+contact@ianas.me",
+    "url": "https://ianas.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/An4s0/i8i"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/An4s0/i8i/issues"
+  },
+  "homepage": "https://i8i.pw",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
