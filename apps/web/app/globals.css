@@ -1,50 +1,58 @@
+@import "tailwindcss";
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #f7f7f7;
+    --foreground: #000;
+
+    --color-subtle: #444444;
+
+    --color-border: #e4e4e4;
+
+    --color-hr: #e4e4e4;
+
+    --color-links: #4b4b4b;
+    --color-links-hover: #000;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+    --background: #1a1a1a;
+    --foreground: #fff;
+
+    --color-subtle: #999999;
+
+    --color-border: #363636;
+
+    --color-hr: #363636;
+
+    --color-links: #cacaca;
+    --color-links-hover: #fff4f7;
 }
 
-html,
+@theme {
+    --color-subtle: var(--color-subtle);
+    --color-hr: var(--color-hr);
+    --color-border: var(--color-border);
+    --color-primary: #fdaa6b;
+    --color-primary-hover: #fc987a;
+}
+
+
+
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+    color: var(--foreground);
+    background: var(--background);
+    overflow-x: hidden;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
+.links {
+    color: var(--color-links);
+    @apply font-semibold;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+.links:hover {
+    color: var(--color-links-hover);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.imgDark {
-  display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-
-  .imgLight {
-    display: none;
-  }
-  .imgDark {
-    display: unset;
-  }
+.docs {
+    font-family: 'Fira Code', monospace;
 }

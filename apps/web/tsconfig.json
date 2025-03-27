@@ -5,7 +5,36 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+        "@/*": [
+            "./*"
+        ],
+        "@components/*": [
+            "./components/*"
+        ],
+        "@utils/*": [
+            "./utils/*"
+        ],
+        "@db/*": [
+            "./db/*"
+        ],
+        "@types/*": [
+            "./types/*"
+        ],
+        "@validation/*": [
+            "./validation/*"
+        ],
+        "@providers/*": [
+            "./providers/*"
+        ],
+        "@lib/*": [
+            "./lib/*"
+        ],
+        "@config/*": [
+            "./config/*"
+        ],
+    }
   },
   "include": [
     "**/*.ts",

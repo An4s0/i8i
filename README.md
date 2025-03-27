@@ -1,84 +1,142 @@
-# Turborepo starter
+<h1 align="center">
+  <br>
+  <a href="http://i8i.pw"><img src="https://i.imgur.com/VubulYB.png" alt="i8i" width="200"></a>
+  <br>
+  i8i.pw
+  <br>
+</h1>
 
-This Turborepo starter is maintained by the Turborepo core team.
+<h4 align="center">Powerful open-source URL shortener with custom links, analytics, and security.</h4>
 
-## Using this example
+<p align="center">
+  <a href="https://github.com/An4s0/i8i/stargazers">
+    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/An4s0/i8i?style=for-the-badge">
+</a>
+<a href="https://github.com/An4s0/i8i/network/members">
+    <img alt="GitHub forks" src="https://img.shields.io/github/forks/An4s0/i8i?style=for-the-badge">
+</a>
+<a href="https://github.com/An4s0/i8i/issues">
+    <img alt="GitHub issues" src="https://img.shields.io/github/issues/An4s0/i8i?style=for-the-badge">
+</a>
+<a href="https://github.com/An4s0/i8i/discussions">
+    <img alt="GitHub discussions" src="https://img.shields.io/github/discussions/An4s0/i8i?style=for-the-badge">
+</a>
+<a href="https://github.com/An4s0/i8i/blob/main/LICENSE">
+    <img alt="GitHub license" src="https://img.shields.io/github/license/An4s0/i8i?style=for-the-badge">
+</a>
+</p>
 
-Run the following command:
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#technologies-used">Technologies Used</a> •
+  <a href="#deployment">Deployment</a> •
+  <a href="#license">License</a> •
+  <a href="#contact">Contact</a>
+</p>
 
-```sh
-npx create-turbo@latest
-```
+![screenshot](./screenshots/image.png)
 
-## What's inside?
+<div id="features">
 
-This Turborepo includes the following packages/apps:
+# Features
+- 📊 Analytics: location, os and browser.
+- 🔒 Password protection for links. 
+- 🕒 Expiration settings for temporary links.
+- 📌 QR code generation. (under development)
+- 📡 API for developers. 
 
-### Apps and Packages
+</div>
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+<div id="installation">
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+# Installation
 
-### Utilities
+To install and run the i8i URL shortener locally, follow these steps:
 
-This Turborepo has some additional tools already setup for you:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/An4s0/i8i.git
+   ```
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+2. Navigate to the project folder:
+   ```bash
+   cd i8i
+   ```
 
-### Build
+3. Install the required dependencies:
+   ```bash
+   npm install
+   ```
 
-To build all apps and packages, run the following command:
+4. Start the server:
+   ```bash
+   npm run start
+   ```
 
-```
-cd my-turborepo
-pnpm build
-```
+5. Visit the app in your browser:
+   ```bash
+   http://localhost:3000
+   ```
 
-### Develop
+</div>
 
-To develop all apps and packages, run the following command:
+<div id="usage">
 
-```
-cd my-turborepo
-pnpm dev
-```
+# Usage
 
-### Remote Caching
+Once the server is running, you can access the i8i URL shortener by visiting the application in your browser. You can shorten URLs, view analytics, and manage your links.
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+- **Shorten a URL**: Simply input the long URL you want to shorten and click the "Shorten" button.
+- **Analytics**: Track the performance of your links by checking clicks, user locations, os and browsers.
+- **QR Codes**: Generate QR codes for any URL (coming soon).
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+</div>
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+<div id="technologies-used">
 
-```
-cd my-turborepo
-npx turbo login
-```
+# Technologies Used
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+- **Next.js**: React framework
+- **TypeScript**: Language
+- **Tailwind CSS**: Styling
+- **MongoDB**: Database
+- **Vercel**: Deployment & Analytics
+- **Chart.js**: Charts
+- **UAParser.js**: User agent parsing
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+</div>
 
-```
-npx turbo link
-```
+<div id="deployment">
 
-## Useful Links
+# Deployment
 
-Learn more about the power of Turborepo:
+To deploy the i8i URL shortener, you can use cloud platforms like Heroku, Vercel, or DigitalOcean.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+1. Set up a production database in MongoDB Atlas or another cloud-based database service.
+2. Configure environment variables in your cloud provider's dashboard:
+   - `MONGODB_URL` for the database connection.
+   - `NEXT_PUBLIC_APP_URL` for the application URL (e.g., `https://i8i.pw`).
+3. Push the code to your cloud platform and configure the deployment settings.
+
+</div>
+
+<div id="license">
+
+# License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+</div>
+
+<div id="contact">
+
+# Contact
+
+For any inquiries, feel free to reach out:
+
+- Email: [me+contact@ianas.me](mailto:me+contact@ianas.me)
+- GitHub: [An4s0](https://github.com/An4s0)
+
+</div>
