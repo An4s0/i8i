@@ -34,6 +34,8 @@
   <a href="#contact">Contact</a>
 </div>
 
+<br>
+
 ![screenshot](./screenshots/image.png)
 
 ---
