@@ -13,6 +13,9 @@
       "@providers/*": [
         "./providers/*"
       ],
+      "@components/*": [
+        "./components/*"
+      ],
     }
   },
   "include": [

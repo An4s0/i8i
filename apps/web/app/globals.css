@@ -3,9 +3,29 @@
 :root {
   --background: #f7f7f7;
   --foreground: #000;
+
+  --color-outline: #e4e4e4;
+
+  --color-link: #4b4b4b;
+  --color-link-hover: #000;
 }
 
 .dark {
   --background: #1a1a1a;
   --foreground: #fff;
+
+  --color-outline: #363636;
+
+  --color-link: #cacaca;
+  --color-link-hover: #fff4f7;
+}
+
+@theme {
+  --color-outline: var(--color-outline);
+  --color-link: var(--color-link);
+  --color-link-hover: var(--color-link-hover);
+}
+
+.link {
+  @apply font-semibold text-link hover:text-link-hover;
 }
