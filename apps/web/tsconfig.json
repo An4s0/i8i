@@ -5,7 +5,15 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@providers/*": [
+        "./providers/*"
+      ],
+    }
   },
   "include": [
     "**/*.ts",
