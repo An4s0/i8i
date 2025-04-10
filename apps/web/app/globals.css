@@ -4,17 +4,23 @@
   --background: #f7f7f7;
   --foreground: #000;
 
+  --color-primary: #007fff;
+
   --color-subtle: #444444;
 
   --color-outline: #e4e4e4;
 
   --color-link: #4b4b4b;
   --color-link-hover: #000;
+
+  --color-icon-hover: #4b4b4b;
 }
 
 .dark {
   --background: #1a1a1a;
   --foreground: #fff;
+
+  --color-primary: #249cf8;
 
   --color-subtle: #999999;
 
@@ -22,15 +28,27 @@
 
   --color-link: #cacaca;
   --color-link-hover: #fff4f7;
+
+  --color-icon-hover: #cacaca;
 }
 
 @theme {
+  --color-primary: var(--color-primary);
+
   --color-subtle: var(--color-subtle);
+
   --color-outline: var(--color-outline);
+
   --color-link: var(--color-link);
   --color-link-hover: var(--color-link-hover);
+
+  --color-icon-hover: var(--color-icon-hover);
 }
 
 .link {
   @apply font-semibold text-link hover:text-link-hover;
+}
+
+.icon {
+  @apply hover:text-icon-hover;
 }

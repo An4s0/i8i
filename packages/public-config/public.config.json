@@ -1,0 +1,12 @@
+{
+  "urls": {
+    "baseUrl": "http://localhost:3000",
+    "apiUrl": "http://localhost:3002",
+    "docsUrl": "http://localhost:3001"
+  },
+  "ports": {
+    "basePort": 3000,
+    "apiPort": 3002,
+    "docsPort": 3001
+  }
+}
