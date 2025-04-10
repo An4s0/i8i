@@ -1,13 +1,14 @@
 export default function Error404({
     size = 24,
-    color
+    className = "",
 }: {
     size?: number;
-    color?: string;
+    className?: string;
 }) {
     return (
         <svg
-            stroke={color || "currentColor"}
+            stroke="currentColor"
+            className={className}
             fill="none"
             strokeWidth="2"
             viewBox="0 0 24 24"
