@@ -1,0 +1,7 @@
+{
+  "urls": {
+    "baseUrl": "http://localhost:3000",
+    "apiUrl": "http://localhost:3001",
+    "docsUrl": "http://localhost:3002"
+  }
+}
