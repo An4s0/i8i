@@ -4,7 +4,7 @@ import Link from "next/link"
 import Visits from "./visits"
 import Countries from "./countries"
 import Devices from "./devices"
-import Browsers from "./browsers";
+import Browsers from "./referrers";
 import { Link as LinkIcon } from "@/components/icons"
 
 export default function Analytics() {
@@ -105,6 +105,19 @@ export default function Analytics() {
         { label: "United Kingdom", visits: 1000 },
     ];
 
+    const devicesData = [
+        { label: "Desktop", visits: 6000 },
+        { label: "Mobile", visits: 4000 },
+        { label: "Tablet", visits: 2000 },
+    ];
+
+    const referrersData = [
+        { label: "Google", visits: 7000 },
+        { label: "Facebook", visits: 3000 },
+        { label: "Twitter", visits: 2000 },
+        { label: "LinkedIn", visits: 1000 },
+    ];
+
     return (
         <main className="max-w-7xl m-auto space-y-2 p-3">
             <h1 className="text-2xl font-bold mt-5">Analytics</h1>
@@ -151,10 +164,10 @@ export default function Analytics() {
                     <Countries data={countriesData} />
                 </div>
                 <div className="border border-subtle/30 rounded-md p-4 max-h-[300px]">
-                    <Devices data={countriesData} />
+                    <Devices data={devicesData} />
                 </div>
                 <div className="border border-subtle/30 rounded-md p-4 max-h-[300px]">
-                    <Browsers data={countriesData} />
+                    <Browsers data={referrersData} />
                 </div>
             </div>
         </main>
