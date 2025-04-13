@@ -29,6 +29,9 @@
 }
 
 @theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
   --color-primary: var(--color-primary);
 
   --color-subtle: var(--color-subtle);

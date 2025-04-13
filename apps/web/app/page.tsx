@@ -19,7 +19,7 @@ export default function Home() {
     e.preventDefault();
     setLoading(true);
 
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    const urlPattern = /^(http|https):\/\/[^ "]+$/;
     if (!urlPattern.test(data.url)) {
       setError("Please enter a valid URL");
       return;
