@@ -32,7 +32,6 @@ export default function Shorten() {
                         />
                         <button
                             className="px-4 py-2 text-sm font-semibold text-white bg-primary rounded-lg cursor-pointer hover:bg-primary/80"
-
                         >
                             Visit
                         </button>
