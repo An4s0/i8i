@@ -37,10 +37,7 @@ export default function Shorten() {
                             Visit
                         </button>
                     </div>
-
-
                 </div>
-
             </div>
         </main>
     )
