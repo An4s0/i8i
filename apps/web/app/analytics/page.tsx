@@ -78,7 +78,7 @@ export default function Analytics() {
                                 type="text"
                                 placeholder="Enter short code to see analytics"
                                 className="w-full h-full focus:outline-none text-lg"
-                                value={shortCode}
+                                value={shortCode ?? ""}
                                 onChange={(e) => setShortCode(e.target.value)}
                             />
                             <button
