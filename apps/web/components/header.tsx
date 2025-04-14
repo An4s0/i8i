@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Github, Document, Sun, Moon } from "./icons";
-import config from "../config.json"
 
 export default function Header() {
     const { theme, setTheme } = useTheme();
