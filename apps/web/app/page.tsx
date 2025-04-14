@@ -1,7 +1,8 @@
 'use client';
 import { useState } from "react";
 import { Link, Lock, Calendar } from "@/components/icons";
-import config from "../config.json"
+import config from "@/config.json";
+import shorten from "@/lib/shorten";
 
 export default function Home() {
   const [moreOptions, setMoreOptions] = useState(false);
@@ -15,38 +16,25 @@ export default function Home() {
   const [copied, setCopied] = useState("Copy");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      setError("");
 
-    const urlPattern = /^(http|https):\/\/[^ "]+$/;
-    if (!urlPattern.test(data.url)) {
-      setError("Please enter a valid URL");
-      return;
-    }
-    if (!data.url) {
-      setError("Please enter a URL");
-      return;
-    }
-    if (data.url.startsWith("http://")) {
-      data.url = data.url.replace("http://", "https://");
-    }
-    if (data.expiration < 1 || data.expiration > 365 || isNaN(data.expiration)) {
-      setError("Expiration time must be between 1 and 365 days");
-      return;
-    }
-    if (data.password.length >= 1 && data.password.length < 6) {
-      setError("Password must be at least 6 characters long");
-      return;
-    }
-    setError("");
+      const response = await shorten.post(data.url, data.expiration, data.password);
 
-    console.log("Data submitted:", data);
-
-    setTimeout(() => {
+      if (response.success) {
+        setShortenedUrl(response.data.shortUrl);
+      } else {
+        setError(response.message);
+      }
+      
       setLoading(false);
-    }, 2000);
-    setShortenedUrl("https://i8i.pw/abc12");
+    } catch (error) {
+      console.error("Error while shortening URL:", error);
+      setError("An unexpected error occurred. Please try again.");
+    }
   };
 
   const handleCopy = () => {
