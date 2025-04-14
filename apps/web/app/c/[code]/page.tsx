@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Lock } from "@/components/icons";
 import { usePathname } from "next/navigation";
 import NotFoundPage from "@/app/not-found";
@@ -12,7 +12,7 @@ export default function Shorten() {
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
 
-    const getURL = async () => {
+    const getURL = useCallback(async () => {
         const res = await shorten.get(pathname.split("/")[2], isPassword ? password : undefined);
         if (res.success) window.location.href = res.data.originalUrl;
         else if (res.data.protected) {
@@ -20,11 +20,12 @@ export default function Shorten() {
             else setError(res.message);
         }
         else setNotFound(true);
-    }
+    }, [pathname, isPassword, password, shorten]);
 
     useEffect(() => {
         getURL();
-    }, [pathname]);
+    }, [getURL]);
+
 
     if (notFound) return <NotFoundPage />;
 

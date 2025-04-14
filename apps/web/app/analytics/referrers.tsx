@@ -8,7 +8,7 @@ export default function Referrers({ data }: { data: { label: string, visits: num
             </div>
             <hr className="h-6 border-outline mt-2" />
             <div className="w-full h-full flex flex-col gap-2 overflow-auto">
-                {data.map((c, i) => {
+                {data.map((c) => {
                     const total = data.reduce((acc, cur) => acc + cur.visits, 0);
                     const percentage = total === 0 ? 0 : (c.visits / total) * 100;
                     return (

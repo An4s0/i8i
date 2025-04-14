@@ -17,6 +17,7 @@
 # typescript
 **/*.tsbuildinfo
 **/*.d.ts
+/dist
 
 # log files
 *.log

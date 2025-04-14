@@ -18,7 +18,11 @@
   "description": "Powerful open-source URL shortener with analytics, password protection, and expiration settings.",
   "scripts": {
     "dev:web":"cd apps/web && pnpm dev",
-    "dev:api":"cd apps/api && pnpm dev"
+    "build:web":"cd apps/web && pnpm build",
+    "start:web":"cd apps/web && pnpm start",
+    "dev:api":"cd apps/api && pnpm dev",
+    "build:api":"cd apps/api && pnpm build",
+    "start:api":"cd apps/api && pnpm start"
   },
   "keywords": []
 }

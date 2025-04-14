@@ -4,7 +4,7 @@ import config from "@/config.json";
 export interface APIResponse {
     success: boolean;
     message: string;
-    data?: {}
+    data?: object;
 }
 
 const shorten = {

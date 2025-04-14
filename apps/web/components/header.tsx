@@ -29,9 +29,6 @@ export default function Header() {
                     <Link href={"/analytics"} className="link">
                         Analytics
                     </Link>
-                    <Link href={config.urls.docsUrl} className="link cursor-pointer" target="_blank" aria-label="Documentation">
-                        Docs
-                    </Link>
                     <hr className="h-6 border-l border-outline" />
                     <Link href={"https://github.com/An4s0/i8i"} target="_blank" aria-label="GitHub repository">
                         <Github className="icon" size={20} />
