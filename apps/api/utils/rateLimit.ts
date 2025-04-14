@@ -1,7 +1,7 @@
 import config from "../config.json";
 
 const rateLimitMap = new Map<string, { count: number, startTime: number }>();
-const maxRequests = 10;
+const maxRequests = 20000;
 const rateLimitTime = 15 * 60 * 1000;
 
 export function rateLimit(ipAddress: string): { allowed: boolean, message?: string } | void {

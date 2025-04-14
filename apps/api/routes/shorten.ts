@@ -110,14 +110,20 @@ router.get("/shorten", async (req, res) => {
             if (!password) {
                 res.status(401).json({
                     success: false,
-                    message: config.messages.shorten.protected
+                    message: config.messages.shorten.protected,
+                    data:{
+                        protected: true
+                    }
                 } as APIResponse);
                 return;
             }
             if (findShortUrl.password !== password) {
                 res.status(401).json({
                     success: false,
-                    message: config.messages.shorten.incorrectPassword
+                    message: config.messages.shorten.incorrectPassword,
+                    data:{
+                        protected: true
+                    }
                 } as APIResponse);
                 return;
             }

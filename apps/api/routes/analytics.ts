@@ -53,6 +53,8 @@ router.get("/analytics", async (req, res) => {
             success: true,
             message: config.messages.success.analytics,
             data: {
+                originalUrl: findShortUrl.originalUrl,
+                shortCode: findShortUrl.shortCode,
                 analytics
             }
         } as APIResponse);
