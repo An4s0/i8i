@@ -1,8 +1,8 @@
 {
   "urls": {
-    "baseUrl": "http://localhost:3000",
-    "apiUrl": "http://localhost:3001",
-    "docsUrl": "http://localhost:3002"
+    "baseUrl": "https://i8i.pw",
+    "apiUrl": "https://api.i8i.pw",
+    "docsUrl": "https://docs.i8i.pw"
   },
   "port": 3001,
   "messages": {
