@@ -1,102 +1,144 @@
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
-
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
-
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
-
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
+"use client";
+import { useState } from "react";
+import { Link, Lock, Calendar } from "@/components/icons";
+import shorten from "@/lib/shorten";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <ThemeImage
-          className={styles.logo}
-          srcLight="turborepo-dark.svg"
-          srcDark="turborepo-light.svg"
-          alt="Turborepo logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>apps/web/app/page.tsx</code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [moreOptions, setMoreOptions] = useState(false);
+  const [data, setData] = useState({
+    url: "",
+    password: "",
+    expiration: 7,
+  });
+  const [error, setError] = useState("");
+  const [shortenedUrl, setShortenedUrl] = useState("");
+  const [copied, setCopied] = useState("Copy");
+  const [loading, setLoading] = useState(false);
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new/clone?demo-description=Learn+to+implement+a+monorepo+with+a+two+Next.js+sites+that+has+installed+three+local+packages.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F4K8ZISWAzJ8X1504ca0zmC%2F0b21a1c6246add355e55816278ef54bc%2FBasic.png&demo-title=Monorepo+with+Turborepo&demo-url=https%3A%2F%2Fexamples-basic-web.vercel.sh%2F&from=templates&project-name=Monorepo+with+Turborepo&repository-name=monorepo-turborepo&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fturborepo%2Ftree%2Fmain%2Fexamples%2Fbasic&root-directory=apps%2Fdocs&skippable-integrations=1&teamSlug=vercel&utm_source=create-turbo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  const handleSubmit = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      setError("");
+
+      const response = await shorten.post(
+        data.url,
+        data.expiration,
+        data.password,
+      );
+
+      if (response.success) {
+        setShortenedUrl(response.data.shortUrl);
+      } else {
+        setError(response.message);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.error("Error while shortening URL:", error);
+      setError("An unexpected error occurred. Please try again.");
+    }
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(shortenedUrl);
+    setCopied("Copied!");
+    setTimeout(() => {
+      setCopied("Copy");
+    }, 2000);
+  };
+
+  return (
+    <main className="flex flex-col items-center justify-center h-[calc(100vh-5rem)]">
+      <span className="text-5xl font-bold text-primary">Create Short Link</span>
+      <p className="mt-4 text-lg text-center text-subtle">
+        Enter your link and adjust the settings such as expiration time or add
+        an optional password.
+      </p>
+      {error && (
+        <p className="mt-2 text-lg text-center text-red-500 font-semibold">
+          {error}
+        </p>
+      )}
+      <div className="flex flex-col items-center justify-center w-full max-w-2xl mt-8">
+        <div className="w-full p-4 rounded-lg shadow-md">
+          <div className="w-full h-12 p-2 rounded-lg bg-primary/10 flex items-center gap-3">
+            <Link size={30} className="text-primary/80" />
+            <input
+              type="text"
+              placeholder="Paste a link to shorten it!"
+              className="w-full h-full focus:outline-none text-lg"
+              value={shortenedUrl ? shortenedUrl : data.url}
+              readOnly={!!shortenedUrl}
+              onChange={(e) => setData({ ...data, url: e.target.value })}
             />
-            Deploy now
-          </a>
-          <a
-            href="https://turborepo.com/docs?utm_source"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+            <button
+              className="px-4 py-2 text-sm font-semibold text-white bg-primary rounded-lg cursor-pointer hover:bg-primary/80"
+              onClick={shortenedUrl ? handleCopy : handleSubmit}
+            >
+              {loading ? "Shortening..." : shortenedUrl ? copied : "Shorten"}
+            </button>
+          </div>
+          {!shortenedUrl && (
+            <>
+              {moreOptions && (
+                <div className="flex flex-col items-center justify-center mt-4">
+                  <div className="w-full p-2 rounded-lg bg-primary/10 flex items-center gap-3">
+                    <Lock size={26} className="text-primary/80" />
+                    <input
+                      type="text"
+                      placeholder="Optional password"
+                      className="w-full h-full focus:outline-none text-lg"
+                      onChange={(e) =>
+                        setData({ ...data, password: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="w-full p-2 rounded-lg bg-primary/10 flex items-center gap-3 mt-4">
+                    <Calendar size={22} className="text-primary/80" />
+                    <input
+                      type="number"
+                      placeholder="Expiration time (in days)"
+                      defaultValue="7"
+                      min={1}
+                      max={365}
+                      className="w-full h-full focus:outline-none text-lg"
+                      onChange={(e) =>
+                        setData({
+                          ...data,
+                          expiration: parseInt(e.target.value),
+                        })
+                      }
+                    />
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+          <div className="flex mt-4 items-center justify-center">
+            <span
+              className="text-sm text-subtle font-semibold cursor-pointer hover:text-link-hover"
+              onClick={
+                shortenedUrl
+                  ? () =>
+                      (window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/analytics?code=${shortenedUrl.split("/").pop()}`)
+                  : () => setMoreOptions(!moreOptions)
+              }
+            >
+              {shortenedUrl
+                ? "See Analytics"
+                : moreOptions
+                  ? "Less Options"
+                  : "More Options"}
+            </span>
+          </div>
         </div>
-        <Button appName="web" className={styles.secondary}>
-          Open alert
-        </Button>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://turborepo.com?utm_source=create-turbo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to turborepo.com →
-        </a>
-      </footer>
-    </div>
+        <div className="flex mt-4 items-center justify-center">
+          <span className="text-sm text-subtle">
+            Use it, its free, open source, secure and long term link.
+          </span>
+        </div>
+      </div>
+    </main>
   );
 }
