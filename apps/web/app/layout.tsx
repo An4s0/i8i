@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     siteName: "i8i",
     images: [
       {
-        url: "https://i8i.pw/logo.svg",
-        width: 800,
-        height: 800,
+        url: "https://i8i.pw/og.png",
+        width: 1200,
+        height: 630,
       },
     ],
   },
