@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_BASE_URL}`),
   title: "i8i - URL Shortener",
   description:
     "An open-source, powerful, and simple URL shortener with analytics, password protection, and expiration settings.",
