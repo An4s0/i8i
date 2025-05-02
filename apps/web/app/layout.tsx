@@ -15,21 +15,8 @@ export const metadata: Metadata = {
       url: "https://ianas.me",
     },
   ],
-  robots: "index, follow",
-  openGraph: {
-    title: "i8i - URL Shortener",
-    description:
-      "An open-source, powerful, and simple URL shortener with analytics, password protection, and expiration settings.",
-    url: "https://i8i.pw/",
-    type: "website",
-    siteName: "i8i",
-    images: [
-      {
-        url: "https://i8i.pw/og.png",
-        width: 1200,
-        height: 630,
-      },
-    ],
+  twitter: {
+    card: "summary_large_image",
   },
 };
 
