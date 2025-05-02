@@ -8,22 +8,19 @@ import routes from "./routes";
 import connect from "./db";
 const app = express();
 
-if (process.env.NODE_ENV === "development") {
-  app.use((req, res, next) => {
-    const start = Date.now();
+app.use((req, res, next) => {
+  const start = Date.now();
 
-    res.on("finish", () => {
-      const duration = Date.now() - start;
-      console.log(
-        `${req.method} ${req.originalUrl} ${res.statusCode} in ${duration}ms`,
-      );
-    });
-
-    next();
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    console.log(
+      `${req.method} ${req.originalUrl} ${res.statusCode} in ${duration}ms`,
+    );
   });
 
-  console.log("Development mode enabled. Logging middleware added.");
-}
+  next();
+});
+
 
 app.use(express.json());
 app.use(cors());
