@@ -1,0 +1,35 @@
+{
+  "error": {
+    "invalid": {
+      "ip": "Could not detect your IP address.",
+      "url": "That doesn't look like a valid URL. Please check and try again.",
+      "shortCode": "The short code you entered is invalid.",
+      "password": "Password should be 6 to 20 characters long.",
+      "days": "Please choose a number of days between 1 and 365."
+    },
+    "request": {
+      "empty": "Request can't be empty.",
+      "tooLarge": "Request is too large to process.",
+      "invalidJson": "Your request contains invalid JSON. Please check the format."
+    },
+    "rateLimit": "You're sending too many requests. Please wait and try again.",
+    "notFound": "We couldn't find what you're looking for.",
+    "unauthorized": "You're not authorized to access this resource.",
+    "server": "Something went wrong on our side. Please try again later."
+  },
+  "success": {
+    "shorten": "Your link has been shortened!",
+    "retrieved": "Data loaded successfully.",
+    "analytics": "Analytics loaded successfully."
+  },
+  "shorten": {
+    "expired": "This link has expired.",
+    "protected": "This link is password-protected. Please enter the correct password.",
+    "notFound": "We couldn’t find a link for this code.",
+    "incorrectPassword": "Wrong password. Please try again."
+  },
+  "info": {
+    "rateLimit": "You're close to the limit. Slow down a bit.",
+    "usage": "Your short link will expire based on the duration you selected."
+  }
+}
