@@ -4,6 +4,10 @@ const router = Router();
 import shorten from "./shorten";
 import analytics from "./analytics";
 
+router.get("/", (req, res) => {
+  res.send("Welcome to the URL Shortener API");
+});
+
 router.post("/shorten", shorten);
 router.get("/shorten", shorten);
 
