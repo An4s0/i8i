@@ -5,7 +5,7 @@ import shorten from "./shorten";
 import analytics from "./analytics";
 
 router.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Welcome to the i8i API");
 });
 
 router.post("/shorten", shorten);
