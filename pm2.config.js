@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       namespace: "i8i",
-      name: "web",
+      name: "i8i-web",
       script: "pnpm start --port 3000",  
       cwd: "./apps/web", 
       watch: ".",  
@@ -10,7 +10,7 @@ module.exports = {
     },
     {
       namespace: "i8i",
-      name: "api",
+      name: "i8i-api",
       script: "pnpm start",  
       cwd: "./apps/api",
       watch: ".",  
