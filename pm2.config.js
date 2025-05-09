@@ -3,7 +3,7 @@ module.exports = {
     {
       namespace: "i8i",
       name: "web",
-      script: "pnpm build && pnpm start --port 3000",  
+      script: "pnpm start --port 3000",  
       cwd: "./apps/web", 
       watch: ".",  
       autorestart: true,  
@@ -11,7 +11,7 @@ module.exports = {
     {
       namespace: "i8i",
       name: "api",
-      script: "pnpm build && pnpm start",  
+      script: "pnpm start",  
       cwd: "./apps/api",
       watch: ".",  
       autorestart: true,
